@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import PlayListItem from './PlayListItem/PlayListItem';
 import { Container } from './styles';
 
@@ -8,7 +9,6 @@ const PlayList = ({
   updateActiveAudioId,
   pauseOrPlayAudio,
   playAudio }) => {
-
   return (
     <Container>
       {
@@ -24,6 +24,14 @@ const PlayList = ({
       }
     </Container>
   )
+}
+
+PlayList.propTypes = {
+  audioList: PropTypes.array,
+  activeAudioId: PropTypes.string,
+  updateActiveAudioId: PropTypes.func,
+  pauseOrPlayAudio: PropTypes.func,
+  playAudio: PropTypes.func,
 }
 
 export default PlayList;

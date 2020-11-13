@@ -13,6 +13,7 @@ const Container = styled.div`
   bottom: 0;
   left: 0;
   padding: 0.6rem;
+  z-index: 2;
   img{
     width: 1.75rem;
     height: 1.75rem;
@@ -34,7 +35,7 @@ const Button = styled.button`
 
 const Span = styled.span`
   display: block;
-  padding: 9rem 1rem;
+  padding: 0rem 1rem;
 `;
 
 const RangeInput = styled.input`
@@ -57,6 +58,7 @@ const RangeInput = styled.input`
 const FlexDiv = styled.div`
   display: flex;
   align-items: center;
+  height: 100%;
 `
 
 export {

@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import pauseIcon from '../../assets/images/icons/pause-icon.svg';
 import playIcon from '../../assets/images/icons/play-icon.svg';
 import playNextIcon from '../../assets/images/icons/play-next-icon.svg';
@@ -61,6 +62,7 @@ const ControlPanel = ({
   useEffect(() => {
     if(!audioNode) return false;
     audioNode.addEventListener('ended', setNextAudio);
+
     return ()=> {
       audioNode.removeEventListener('ended', setNextAudio)
     }
@@ -110,6 +112,16 @@ const ControlPanel = ({
       </FlexDiv>
     </Container>
   )
+}
+
+ControlPanel.propTypes = {
+  audioList: PropTypes.array,
+  activeAudioId: PropTypes.string,
+  updateActiveAudioId: PropTypes.func,
+  pauseOrPlayAudio: PropTypes.func,
+  playAudio: PropTypes.func,
+  audioRef: PropTypes.object,
+  audioNode: PropTypes.object
 }
 
 export default ControlPanel;
