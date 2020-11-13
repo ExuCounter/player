@@ -11,18 +11,16 @@ const PlayListItem = ({
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    const updateDuration = (callback) => {
-      const currentAudio = new Audio(audio.link);
-      currentAudio.addEventListener('loadedmetadata', ()=>setDuration(currentAudio.duration))
-      return () => {
-        currentAudio.removeEventListener('loadedmetadata', ()=>setDuration(currentAudio.duration))
-      }
+    const currentAudioElement = document.createElement('audio');
+    currentAudioElement.src = audio.link;
+
+    currentAudioElement.addEventListener('loadedmetadata', ()=>setDuration(currentAudioElement.duration));
+    return ()=>{
+      currentAudioElement.addEventListener('loadedmetadata', ()=>setDuration(currentAudioElement.duration))
     }
-    updateDuration();
   }, [audio.link])
 
   if (!audio.show) return null;
-
   const selectAudioHandler = () => {
     updateActiveAudioId(audio._id)
     if (audio._id === activeAudioId) {
