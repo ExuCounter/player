@@ -72,21 +72,21 @@ const ControlPanel = ({
     <Container>
       <FlexDiv>
         <Button onClick={setPreviousAudio}>
-          <img src={playPreviousIcon} alt="Next Song" />
+          <img src={playPreviousIcon} alt='Next Song' />
         </Button>
         <Button onClick={playOrPauseHandler}>
-          <img src={playOrPauseIcon} alt="Play / Pause Song" />
+          <img src={playOrPauseIcon} alt='Play / Pause Song' />
         </Button>
         <Button onClick={setNextAudio}>
-          <img src={playNextIcon} alt="Next Song" />
+          <img src={playNextIcon} alt='Next Song' />
         </Button>
       </FlexDiv>
       <FlexDiv>
         <FlexDiv>
           <Span>{displayTime(currentTime)}</Span>
           <RangeInput
-            type="range"
-            min="0"
+            type='range'
+            min='0'
             step={duration / 100}
             max={duration}
             value={currentTime}
@@ -96,16 +96,16 @@ const ControlPanel = ({
         <FlexDiv>
           <Span>Volume</Span>
           <RangeInput
-            type="range"
+            type='range'
             step='0.01'
             min="0"
             max="1"
             value={volume}
             onChange={updateVolume} />
           <audio src={currentAudioLink}
-            id="audio"
+            id='audio'
             ref={audioRef}
-            preload="metadata"></audio>
+            preload='metadata'></audio>
         </FlexDiv>
       </FlexDiv>
     </Container>

@@ -24,7 +24,7 @@ const Search = ({ audioList, updateAudioList }) => {
   }
 
   return (
-    <Input type="text" placeholder="Search Music Here" onChange={searchHandler} />
+    <Input type='text' placeholder='Search Music Here' onChange={searchHandler} />
   )
 }
 
