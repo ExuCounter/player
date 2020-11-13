@@ -11,7 +11,7 @@ const PlayListItem = ({
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    const updateDuration = () => {
+    const updateDuration = (callback) => {
       const currentAudio = new Audio(audio.link);
       currentAudio.addEventListener('loadedmetadata', ()=>setDuration(currentAudio.duration))
       return () => {
