@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import pauseIcon from '../../assets/images/icons/pause-icon.svg';
 import playIcon from '../../assets/images/icons/play-icon.svg';
 import playNextIcon from '../../assets/images/icons/play-next-icon.svg';
 import playPreviousIcon from '../../assets/images/icons/play-previous-icon.svg';
-
+import { Container, Button, RangeInput, FlexDiv, Span } from './styles';
 import useAudio from '../../hooks/useAudio';
 import displayTime from '../../helpers/displayTime';
-import { Container, Button, RangeInput, FlexDiv, Span } from './styles';
 
 const ControlPanel = ({
   audioList,
@@ -17,31 +16,28 @@ const ControlPanel = ({
   audioRef,
   audioNode
 }) => {
-  const { duration, currentTime, setSelectedTime } = useAudio(activeAudioId, audioNode);
-
-  const DEFAULT_VOLUME = 0.5;
-  const [volume, setVolume] = useState(DEFAULT_VOLUME);
+  const { duration, currentTime, volume, setSelectedTime, setVolume } = useAudio(activeAudioId, audioNode);
 
   const currentAudioIndex = audioList.findIndex((audio) => audio._id === activeAudioId);
   const currentAudioLink = currentAudioIndex !== -1 ? audioList[currentAudioIndex].link : null;
 
-  const setPreviousAudio = () => {
+  const setPreviousAudio = useCallback(() => {
     if (currentAudioIndex === 0) {
       updateActiveAudioId(audioList[audioList.length - 1]._id)
     } else {
       updateActiveAudioId(audioList[currentAudioIndex - 1]._id);
     }
     playAudio();
-  }
+  }, [currentAudioIndex, audioList, playAudio, updateActiveAudioId])
 
-  const setNextAudio = () => {
+  const setNextAudio = useCallback(() => {
     if (currentAudioIndex === audioList.length - 1) {
       updateActiveAudioId(audioList[0]._id);
     } else {
       updateActiveAudioId(audioList[currentAudioIndex + 1]._id);
     }
     playAudio();
-  }
+  },[currentAudioIndex, audioList, playAudio, updateActiveAudioId]);
 
   const updateVolume = (e) => {
     audioNode.volume = e.target.value;
@@ -54,10 +50,10 @@ const ControlPanel = ({
 
   const playOrPauseHandler = () => {
     pauseOrPlayAudio();
-    if (activeAudioId == null) {
+    if (activeAudioId === null) {
       updateActiveAudioId(audioList[0]._id);
       playAudio();
-    } else if(currentTime == duration){
+    } else if(currentTime === duration){
       setNextAudio();
     }
   }
@@ -66,9 +62,9 @@ const ControlPanel = ({
     if(!audioNode) return false;
     audioNode.addEventListener('ended', setNextAudio);
     return ()=> {
-      audioNode.removeEventListener('ended', setNextAudio);
+      audioNode.removeEventListener('ended', setNextAudio)
     }
-  }, [audioNode, activeAudioId])
+  }, [audioNode, activeAudioId, setNextAudio])
 
   const playOrPauseIcon = !audioNode ? null : audioNode.paused ? playIcon : pauseIcon;
 
