@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import pauseIcon from '../../assets/images/icons/pause-icon.svg';
 import playIcon from '../../assets/images/icons/play-icon.svg';
 import playNextIcon from '../../assets/images/icons/play-next-icon.svg';
@@ -57,12 +57,18 @@ const ControlPanel = ({
     if (activeAudioId == null) {
       updateActiveAudioId(audioList[0]._id);
       playAudio();
+    } else if(currentTime == duration){
+      setNextAudio();
     }
   }
 
-  if(audioNode){
-    audioNode.addEventListener('ended', setNextAudio)
-  }
+  useEffect(() => {
+    if(!audioNode) return false;
+    audioNode.addEventListener('ended', setNextAudio);
+    return ()=> {
+      audioNode.removeEventListener('ended', setNextAudio);
+    }
+  }, [audioNode, activeAudioId])
 
   const playOrPauseIcon = !audioNode ? null : audioNode.paused ? playIcon : pauseIcon;
 
