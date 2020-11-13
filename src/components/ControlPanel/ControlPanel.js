@@ -85,7 +85,6 @@ const ControlPanel = ({
         <FlexDiv>
           <Span>{displayTime(currentTime)}</Span>
           <RangeInput
-            timeStampInput
             type="range"
             min="0"
             step={duration / 100}
@@ -97,7 +96,6 @@ const ControlPanel = ({
         <FlexDiv>
           <Span>Volume</Span>
           <RangeInput
-            volumeInput
             type="range"
             step='0.01'
             min="0"

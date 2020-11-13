@@ -21,14 +21,14 @@ const Item = styled.li`
 const Span = styled.span`
   display: block;
   font-size: 0.9rem;
-  margin-left: ${props => props.duration ? 'auto' : '0rem'};
-  color: ${props => props.author ? '#574d4d' : props.name ? '#897b7b' : '#4f3125'};
+  margin-left: ${props => props.styling === 'duration' ? 'auto' : '0rem'};
+  color: ${props => props.styling === 'author' ? '#574d4d' : props.styling === 'name' ? '#897b7b' : '#4f3125'};
   &:nth-child(1){
     margin-right: 0.3rem;
   }
 `;
 
 export {
-    Item,
-    Span
+  Item,
+  Span
 }

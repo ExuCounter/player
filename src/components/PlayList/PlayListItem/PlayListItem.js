@@ -31,9 +31,9 @@ const PlayListItem = ({
     <Item
       active={activeAudioId === audio._id}
       onClick={selectAudioHandler}>
-      <Span author="true">{audio.author} -</Span>
-      <Span name="true">{audio.name}</Span>
-      <Span duration="true">{displayTime(duration)}</Span>
+      <Span styling="author">{audio.author} -</Span>
+      <Span styling="name">{audio.name}</Span>
+      <Span styling="duration">{displayTime(duration)}</Span>
     </Item>
   )
 }
