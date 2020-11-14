@@ -21,6 +21,4 @@ const Container = styled.ul`
   }
 `;
 
-export {
-  Container
-}
+export { Container };

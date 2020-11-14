@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
   width: 100%;
-  background-color: #FFF;
+  background-color: #fff;
   display: flex;
   align-items: center;
   height: 3.7rem;
@@ -11,6 +11,4 @@ const HeaderContainer = styled.header`
   padding-left: 0.6rem;
 `;
 
-export {
-  HeaderContainer
-}
+export { HeaderContainer };

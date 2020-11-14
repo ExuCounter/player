@@ -8,23 +8,23 @@ const PlayList = ({
   activeAudioId,
   updateActiveAudioId,
   pauseOrPlayAudio,
-  playAudio }) => {
+  playAudio,
+}) => {
   return (
     <Container>
-      {
-        audioList.map(audio => (
-          <PlayListItem
-            updateActiveAudioId={updateActiveAudioId}
-            pauseOrPlayAudio={pauseOrPlayAudio}
-            activeAudioId={activeAudioId}
-            playAudio={playAudio}
-            key={audio._id}
-            audio={audio} />
-        ))
-      }
+      {audioList.map((audio) => (
+        <PlayListItem
+          updateActiveAudioId={updateActiveAudioId}
+          pauseOrPlayAudio={pauseOrPlayAudio}
+          activeAudioId={activeAudioId}
+          playAudio={playAudio}
+          key={audio._id}
+          audio={audio}
+        />
+      ))}
     </Container>
-  )
-}
+  );
+};
 
 PlayList.propTypes = {
   audioList: PropTypes.array,
@@ -32,6 +32,6 @@ PlayList.propTypes = {
   updateActiveAudioId: PropTypes.func,
   pauseOrPlayAudio: PropTypes.func,
   playAudio: PropTypes.func,
-}
+};
 
 export default PlayList;

@@ -15,38 +15,37 @@ const App = () => {
     if (Array.isArray(dummyData)) {
       setAudioList(dummyData);
     }
-  }, [])
+  }, []);
 
   const updateActiveAudioId = (audioId) => {
     setActiveAudioId(audioId);
-  }
+  };
 
   const updateAudioList = (list) => {
     setAudioList(list);
-  }
+  };
 
   const pauseOrPlayAudio = () => {
     audioNode.paused ? audioNode.play() : audioNode.pause();
-  }
+  };
 
   const playAudio = () => {
-    audioNode.addEventListener('loadedmetadata', ()=>{
+    audioNode.addEventListener('loadedmetadata', () => {
       audioNode.play();
-    })
-  }
+    });
+  };
 
   return (
     <>
-      <Header
-        audioList={audioList}
-        updateAudioList={updateAudioList}/>
+      <Header audioList={audioList} updateAudioList={updateAudioList} />
       <PlayList
         audioList={audioList}
         activeAudioId={activeAudioId}
         updateActiveAudioId={updateActiveAudioId}
         pauseOrPlayAudio={pauseOrPlayAudio}
         playAudio={playAudio}
-        audioNode={audioNode} />
+        audioNode={audioNode}
+      />
       <ControlPanel
         audioList={audioList}
         activeAudioId={activeAudioId}
@@ -54,9 +53,10 @@ const App = () => {
         pauseOrPlayAudio={pauseOrPlayAudio}
         playAudio={playAudio}
         audioRef={audioRef}
-        audioNode={audioNode} />
+        audioNode={audioNode}
+      />
     </>
   );
-}
+};
 
 export default App;

@@ -5,11 +5,9 @@ import { HeaderContainer } from './styles';
 const Header = ({ audioList, updateAudioList }) => {
   return (
     <HeaderContainer>
-      <Search
-        audioList={audioList}
-        updateAudioList={updateAudioList} />
+      <Search audioList={audioList} updateAudioList={updateAudioList} />
     </HeaderContainer>
-  )
-}
+  );
+};
 
 export default Header;

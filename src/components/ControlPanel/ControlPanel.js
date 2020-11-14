@@ -15,21 +15,30 @@ const ControlPanel = ({
   pauseOrPlayAudio,
   playAudio,
   audioRef,
-  audioNode
+  audioNode,
 }) => {
-  const { duration, currentTime, volume, setSelectedTime, setVolume } = useAudio(activeAudioId, audioNode);
+  const {
+    duration,
+    currentTime,
+    volume,
+    setSelectedTime,
+    setVolume,
+  } = useAudio(activeAudioId, audioNode);
 
-  const currentAudioIndex = audioList.findIndex((audio) => audio._id === activeAudioId);
-  const currentAudioLink = currentAudioIndex !== -1 ? audioList[currentAudioIndex].link : null;
+  const currentAudioIndex = audioList.findIndex(
+    (audio) => audio._id === activeAudioId
+  );
+  const currentAudioLink =
+    currentAudioIndex !== -1 ? audioList[currentAudioIndex].link : null;
 
   const setPreviousAudio = useCallback(() => {
     if (currentAudioIndex === 0) {
-      updateActiveAudioId(audioList[audioList.length - 1]._id)
+      updateActiveAudioId(audioList[audioList.length - 1]._id);
     } else {
       updateActiveAudioId(audioList[currentAudioIndex - 1]._id);
     }
     playAudio();
-  }, [currentAudioIndex, audioList, playAudio, updateActiveAudioId])
+  }, [currentAudioIndex, audioList, playAudio, updateActiveAudioId]);
 
   const setNextAudio = useCallback(() => {
     if (currentAudioIndex === audioList.length - 1) {
@@ -38,81 +47,89 @@ const ControlPanel = ({
       updateActiveAudioId(audioList[currentAudioIndex + 1]._id);
     }
     playAudio();
-  },[currentAudioIndex, audioList, playAudio, updateActiveAudioId]);
+  }, [currentAudioIndex, audioList, playAudio, updateActiveAudioId]);
 
   const updateVolume = (e) => {
     audioNode.volume = e.target.value;
-    setVolume(e.target.value)
-  }
+    setVolume(e.target.value);
+  };
 
   const updateSelectedTime = (e) => {
     setSelectedTime(e.target.value);
-  }
+  };
 
   const playOrPauseHandler = () => {
     pauseOrPlayAudio();
     if (activeAudioId === null) {
       updateActiveAudioId(audioList[0]._id);
       playAudio();
-    } else if(currentTime === duration){
+    } else if (currentTime === duration) {
       setNextAudio();
     }
-  }
+  };
 
   useEffect(() => {
-    if(!audioNode) return false;
+    if (!audioNode) return false;
     audioNode.addEventListener('ended', setNextAudio);
 
-    return ()=> {
-      audioNode.removeEventListener('ended', setNextAudio)
-    }
-  }, [audioNode, activeAudioId, setNextAudio])
+    return () => {
+      audioNode.removeEventListener('ended', setNextAudio);
+    };
+  }, [audioNode, activeAudioId, setNextAudio]);
 
-  const playOrPauseIcon = !audioNode ? null : audioNode.paused ? playIcon : pauseIcon;
+  const playOrPauseIcon = !audioNode
+    ? null
+    : audioNode.paused
+    ? playIcon
+    : pauseIcon;
 
   return (
     <Container>
       <FlexDiv>
         <Button onClick={setPreviousAudio}>
-          <img src={playPreviousIcon} alt='Next Song' />
+          <img src={playPreviousIcon} alt="Next Song" />
         </Button>
         <Button onClick={playOrPauseHandler}>
-          <img src={playOrPauseIcon} alt='Play / Pause Song' />
+          <img src={playOrPauseIcon} alt="Play / Pause Song" />
         </Button>
         <Button onClick={setNextAudio}>
-          <img src={playNextIcon} alt='Next Song' />
+          <img src={playNextIcon} alt="Next Song" />
         </Button>
       </FlexDiv>
       <FlexDiv>
         <FlexDiv>
           <Span>{displayTime(currentTime)}</Span>
           <RangeInput
-            type='range'
-            min='0'
+            type="range"
+            min="0"
             step={duration / 100}
             max={duration}
             value={currentTime}
-            onChange={updateSelectedTime} />
+            onChange={updateSelectedTime}
+          />
           <Span>{displayTime(duration)}</Span>
         </FlexDiv>
         <FlexDiv>
           <Span>Volume</Span>
           <RangeInput
-            type='range'
-            step='0.01'
+            type="range"
+            step="0.01"
             min="0"
             max="1"
             value={volume}
-            onChange={updateVolume} />
-          <audio src={currentAudioLink}
-            id='audio'
+            onChange={updateVolume}
+          />
+          <audio
+            src={currentAudioLink}
+            id="audio"
             ref={audioRef}
-            preload='metadata'></audio>
+            preload="metadata"
+          ></audio>
         </FlexDiv>
       </FlexDiv>
     </Container>
-  )
-}
+  );
+};
 
 ControlPanel.propTypes = {
   audioList: PropTypes.array,
@@ -121,7 +138,7 @@ ControlPanel.propTypes = {
   pauseOrPlayAudio: PropTypes.func,
   playAudio: PropTypes.func,
   audioRef: PropTypes.object,
-  audioNode: PropTypes.object
-}
+  audioNode: PropTypes.object,
+};
 
 export default ControlPanel;

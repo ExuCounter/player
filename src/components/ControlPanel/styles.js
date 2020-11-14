@@ -14,7 +14,7 @@ const Container = styled.div`
   left: 0;
   padding: 0.6rem;
   z-index: 2;
-  img{
+  img {
     width: 1.75rem;
     height: 1.75rem;
   }
@@ -28,7 +28,7 @@ const Button = styled.button`
   padding: 0.3rem;
   cursor: pointer;
   outline: none;
-  img{
+  img {
     width: 1.35rem;
   }
 `;
@@ -40,7 +40,7 @@ const Span = styled.span`
 
 const RangeInput = styled.input`
   cursor: pointer;
-  &::-webkit-slider-runnable-track{
+  &::-webkit-slider-runnable-track {
     height: 0.2rem;
     width: 100%;
     background: #b1b1b1;
@@ -50,7 +50,7 @@ const RangeInput = styled.input`
     color: #434343;
     margin-top: -0.35rem;
     width: 0.3rem;
-    height: 0.3rem; 
+    height: 0.3rem;
     border-radius: 50%;
   }
 `;
@@ -59,12 +59,6 @@ const FlexDiv = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
-`
+`;
 
-export {
-  Container,
-  Button,
-  RangeInput,
-  FlexDiv,
-  Span
-}
+export { Container, Button, RangeInput, FlexDiv, Span };

@@ -8,9 +8,9 @@ const useAudio = (activeAudioId, audioNode) => {
   const [selectedTime, setSelectedTime] = useState(null);
 
   useEffect(() => {
-    if(!audioNode) return false;
+    if (!audioNode) return false;
 
-    if(selectedTime){
+    if (selectedTime) {
       audioNode.currentTime = selectedTime;
       setCurrentTime(selectedTime);
       setSelectedTime(null);
@@ -19,20 +19,19 @@ const useAudio = (activeAudioId, audioNode) => {
     const setAudioData = () => {
       setDuration(audioNode.duration);
       setCurrentTime(audioNode.currentTime);
-    }
+    };
 
     const setAudioCurrentTime = () => {
       setCurrentTime(audioNode.currentTime);
-    }
+    };
 
     audioNode.addEventListener('loadedmetadata', setAudioData);
     audioNode.addEventListener('timeupdate', setAudioCurrentTime);
 
-    return ()=>{
+    return () => {
       audioNode.removeEventListener('loadedmetadata', setAudioData);
       audioNode.removeEventListener('timeupdate', setAudioCurrentTime);
-    }
-
+    };
   }, [audioNode, activeAudioId, selectedTime]);
 
   return {
@@ -41,8 +40,8 @@ const useAudio = (activeAudioId, audioNode) => {
     volume,
     setSelectedTime,
     setCurrentTime,
-    setVolume
-  }
-}
+    setVolume,
+  };
+};
 
 export default useAudio;
