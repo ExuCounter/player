@@ -82,11 +82,15 @@ const ControlPanel = ({
     };
   }, [audioNode, activeAudioId, setNextAudio]);
 
-  const playOrPauseIcon = !audioNode
+  const playOrPauseIcon = !activeAudioId
     ? null
     : audioNode.paused
     ? playIcon
     : pauseIcon;
+
+  const currentSongInfo = activeAudioId
+    ? `${audioList[currentAudioIndex].author} - ${audioList[currentAudioIndex].name}`
+    : null;
 
   return (
     <Container>
@@ -130,6 +134,9 @@ const ControlPanel = ({
             ref={audioRef}
             preload="metadata"
           ></audio>
+        </FlexDiv>
+        <FlexDiv>
+          <Span>{currentSongInfo}</Span>
         </FlexDiv>
       </FlexDiv>
     </Container>
