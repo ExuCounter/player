@@ -107,7 +107,7 @@ const ControlPanel = ({
           <RangeInput
             type="range"
             min="0"
-            step={duration / 100}
+            step="0.1"
             max={duration}
             value={currentTime}
             onChange={updateSelectedTime}
