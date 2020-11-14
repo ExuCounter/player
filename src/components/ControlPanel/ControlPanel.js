@@ -82,7 +82,7 @@ const ControlPanel = ({
     };
   }, [audioNode, activeAudioId, setNextAudio]);
 
-  const playOrPauseIcon = !activeAudioId
+  const playOrPauseIcon = !audioNode
     ? null
     : audioNode.paused
     ? playIcon
