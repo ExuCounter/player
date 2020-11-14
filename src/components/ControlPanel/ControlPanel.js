@@ -31,23 +31,28 @@ const ControlPanel = ({
   const currentAudioLink =
     currentAudioIndex !== -1 ? audioList[currentAudioIndex].link : null;
 
+  const filteredAudioList = audioList.filter((audio) => audio.show === true);
+  const currentFilteredAudioIndex = filteredAudioList.indexOf(
+    audioList[currentAudioIndex]
+  );
+
   const setPreviousAudio = useCallback(() => {
-    if (currentAudioIndex === 0) {
-      updateActiveAudioId(audioList[audioList.length - 1]._id);
+    if (filteredAudioList.length === 0) return false;
+    if (currentFilteredAudioIndex === 0) {
+      updateActiveAudioId(filteredAudioList[filteredAudioList.length - 1]._id);
     } else {
-      updateActiveAudioId(audioList[currentAudioIndex - 1]._id);
+      updateActiveAudioId(filteredAudioList[currentFilteredAudioIndex - 1]._id);
     }
-    playAudio();
-  }, [currentAudioIndex, audioList, playAudio, updateActiveAudioId]);
+  }, [updateActiveAudioId, currentFilteredAudioIndex, filteredAudioList]);
 
   const setNextAudio = useCallback(() => {
-    if (currentAudioIndex === audioList.length - 1) {
-      updateActiveAudioId(audioList[0]._id);
+    if (filteredAudioList.length === 0) return false;
+    if (currentFilteredAudioIndex === filteredAudioList.length - 1) {
+      updateActiveAudioId(filteredAudioList[0]._id);
     } else {
-      updateActiveAudioId(audioList[currentAudioIndex + 1]._id);
+      updateActiveAudioId(filteredAudioList[currentFilteredAudioIndex + 1]._id);
     }
-    playAudio();
-  }, [currentAudioIndex, audioList, playAudio, updateActiveAudioId]);
+  }, [updateActiveAudioId, currentFilteredAudioIndex, filteredAudioList]);
 
   const updateVolume = (e) => {
     audioNode.volume = e.target.value;
@@ -60,10 +65,10 @@ const ControlPanel = ({
 
   const playOrPauseHandler = () => {
     pauseOrPlayAudio();
-    if (activeAudioId === null) {
-      updateActiveAudioId(audioList[0]._id);
+    if (activeAudioId === null && filteredAudioList.length) {
+      updateActiveAudioId(filteredAudioList[0]._id);
       playAudio();
-    } else if (currentTime === duration) {
+    } else if (currentTime === duration && currentTime > 0) {
       setNextAudio();
     }
   };
